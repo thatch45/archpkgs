@@ -1,0 +1,28 @@
+# Maintainer: Thomas S Hatch <thatch45 at gmail dot com>
+# Contributor: Massimiliano Brocchini <brocchini@netseven.it>
+
+pkgname=ocaml-glcaml
+pkgver=20080215a
+pkgrel=1
+pkgdesc="OpenGL (1.1-2.1)/SDL bindings for Objective Caml (OCaml)"
+arch=('i686' 'x86_64')
+url="http://glcaml.sourceforge.net/"
+license=('BSD' 'LGPL')
+depends=('ocaml' 'sdl' 'mesa')
+source=(http://downloads.sourceforge.net/glcaml/glcaml.$pkgver.tar.gz)
+md5sums=('76dc4d2901830c1ae96d2f23b2bd7b18')
+
+OCAMLFIND_DESTDIR="${pkgdir}$(ocamlfind printconf destdir)"
+
+build() {
+  cd ${srcdir}/glcaml
+  make
+}
+
+package() {
+  cd "${srcdir}/glcaml"
+  mkdir -p "$OCAMLFIND_DESTDIR"
+  env DESTDIR="${pkgdir}" \
+    OCAMLFIND_DESTDIR="$OCAMLFIND_DESTDIR" \
+    make install
+}

@@ -1,0 +1,34 @@
+# Maintainer: Thomas S Hatch <thatch45 (at) Gmail (dot) com>
+
+pkgname=virt-top
+pkgver=1.0.5
+pkgrel=1
+license=('GPL')
+arch=('i686' 'x86_64')
+pkgdesc="Top for libvirt virtual machines"
+url="http://people.redhat.com/~rjones/virt-top/"
+depends=('libvirt')
+makedepends=('ocaml'
+             'ocaml-findlib'
+             'ocaml-extlib'
+             'ocaml-curses'
+             'ocaml-libvirt'
+             'ocaml-fileutils'
+             'ocaml-camomile'
+             'ocaml-calendar'
+             'gettext'
+             'perl'
+             'gawk')
+source=("http://people.redhat.com/~rjones/virt-top/files/${pkgname}-${pkgver}.tar.gz")
+md5sums=('ae360c53db1539312452d4c93fb7ac86')
+
+build() {
+  cd "$srcdir/${pkgname}-${pkgver}"
+  ./configure --libdir=/usr/lib  --prefix=/usr
+  make all opt
+}
+
+package() {
+  cd "$srcdir/${pkgname}-${pkgver}"
+  make DESTDIR=${pkgdir} install
+}

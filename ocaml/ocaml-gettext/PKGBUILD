@@ -1,0 +1,31 @@
+# Maintainer: Thomas S Hatch <thatch45 (at) Gmail (dot) com>
+
+pkgname=ocaml-gettext
+pkgver=0.3.3
+pkgrel=1
+license=('GPL')
+arch=('i686' 'x86_64')
+pkgdesc="Objective Caml (OCaml) bindings for libvirt"
+url="http://libvirt.org/ocaml/"
+depends=('ocaml-findlib' 'ocaml-camomile')
+makedepends=('ocaml'
+             'ocaml-findlib'
+             'ocaml-camomile'
+             'ocaml-ounit'
+             'ocaml-fileutils'
+             'autoconf'
+             'chrpath'
+             'libxml2'
+             'libxslt'
+             'docbook-xsl')
+source=("http://le-gall.net/sylvain+violaine/download/${pkgname}-${pkgver}.tar.gz")
+md5sums=('f1105a62770e6175490e79b803d59e0c')
+
+build() {
+  cd "$srcdir/${pkgname}-$pkgver"
+  #DESTDIR=${pkgdir}
+  #OCAMLFIND_DESTDIR=${pkgdir}$(ocamlfind printconf destdir)
+  ./configure --libdir=/usr/lib --prefix=/usr --enable-test --with-docbook-stylesheet=/usr/share/xml/docbook/xsl-stylesheets-1.76.1/  || return 1
+  make || echo "make error" && return 1
+  make OCAMLFIND_DESTDIR=$OCAMLFIND_DESTDIR DESTDIR=${pkgdir} install || echo "install error" && return 1
+}

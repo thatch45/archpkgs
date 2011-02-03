@@ -1,0 +1,21 @@
+# Maintainer: Thomas S Hatch <thatch45@gmail.com>
+pkgname=mfs-client
+pkgver=1.6.19
+pkgrel=1
+pkgdesc="Client component of the MooseFS file system"
+license=("GPL3")
+arch=('i686' 'x86_64')
+options=('!libtool')
+url="http://www.moosefs.com/"
+depends=('zlib' 'fuse')
+source=("http://www.moosefs.org/tl_files/mfscode/mfs-${pkgver}.tar.gz")
+md5sums=('21a86c7a521c8682868eb8c0b330fb58')
+
+build() {
+  cd "${srcdir}/mfs-${pkgver}"
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --disable-mfschunkserver --disable-mfsmaster --disable-mfscgi --disable-mfscgiserv
+  make || return 1
+  make DESTDIR="${pkgdir}" install || return 1
+  rm -rf ${pkgdir}/usr/share/man/man7
+}
+

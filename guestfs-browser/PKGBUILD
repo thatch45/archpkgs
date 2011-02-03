@@ -1,0 +1,30 @@
+# Maintainer: Thomas S Hatch <thatch45 at gmail dot com>
+pkgname=guestfs-browser
+pkgver=0.1.5
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('GPL')
+pkgdesc="File borwser for file in a virtual machine, powered by libguestfs."
+url="http://people.redhat.com/~rjones/guestfs-browser"
+depends=('ocaml')
+makedepends=('ocaml-findlib' 'lablgtk')
+options=('!strip')
+source=("http://people.redhat.com/~rjones/guestfs-browser/files/$pkgname-$pkgver.tar.gz")
+md5sums=('566feb99dca8e324f72a646e66029f05')
+
+OCAMLFIND_DESTDIR="${pkgdir}/usr/lib/ocaml"
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make all
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  mkdir -p $OCAMLFIND_DESTDIR
+  make \
+    OCAMLFIND_DESTDIR=$OCAMLFIND_DESTDIR \
+    OCAMLFIND_LDCONF=ignore \
+    install
+}

@@ -1,0 +1,34 @@
+# Maintainer: Thomas S Hatch <thatch45 at gmail dot com>
+pkgname=ocaml-lwt
+pkgver=2.2.0
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('LGPL')
+pkgdesc="OCaml lwt coopperative threading system"
+url="http://savonet.sourceforge.net/"
+depends=('ocaml')
+makedepends=('ocaml-findlib')
+options=('!strip')
+source=("http://ocsigen.org/download/lwt-$pkgver.tar.gz")
+md5sums=('4e0b28cbc5a2dfe60013c91a5d051969')
+
+OCAMLFIND_DESTDIR="$pkgdir$(ocamlfind printconf destdir)"
+DOCDIR="$pkgdir/usr/share/doc/ocaml-lwt"
+
+build() {
+  cd "$srcdir/lwt-$pkgver"
+  ./configure --prefix /usr
+  env OCAMLFIND_DESTDIR=$OCAMLFIND_DESTDIR \
+    make all
+  make doc
+}
+
+package() {
+  cd "$srcdir/lwt-$pkgver"
+  mkdir -p $OCAMLFIND_DESTDIR
+  mkdir -p $DOCDIR
+  make \
+    OCAMLFIND_DESTDIR=$OCAMLFIND_DESTDIR \
+    install
+  cp -r _build/lwt.docdir/* $DOCDIR/
+}

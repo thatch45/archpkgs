@@ -1,0 +1,40 @@
+# Maintainer: Thomas S Hatch <thatch45@gmail.com>
+# Contributor: Damjan Georgievski <gdamjan@gmail.com>
+pkgname=mfs
+pkgver=1.6.19
+pkgrel=1
+pkgdesc="File system designed for petabyte class clusters crunching mission critical data 24/7"
+license=("GPL3")
+arch=('i686' 'x86_64')
+options=('!libtool')
+url="http://www.moosefs.com/"
+depends=('zlib' 'fuse')
+source=("http://www.moosefs.org/tl_files/mfscode/${pkgname}-${pkgver}.tar.gz"
+        "mfsmaster"
+        "mfschunkserver"
+        "mfsmetalogger"
+        "mfscgiserv")
+md5sums=('21a86c7a521c8682868eb8c0b330fb58'
+         'e4e260f48b063d7f2bd568fc6230b813'
+         '2b5c6d70938add6aa4e859dfbe11e71b'
+         '4359c1e0f857a3c5d26e0cb67f8c9d8b'
+         '3aa9b98a05d08e1f6256a57746181798')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib 
+  make
+  make DESTDIR="${pkgdir}" install
+  install -D -m0644 README $pkgdir/usr/share/doc/${pkgname}/README
+  install -D -m0644 INSTALL $pkgdir/usr/share/doc/${pkgname}/INSTALL
+  install -D -m0644 NEWS $pkgdir/usr/share/doc/${pkgname}/NEWS
+  install -D -m0644 UPGRADE $pkgdir/usr/share/doc/${pkgname}/UPGRADE
+  install -m 755 -D ${srcdir}/mfsmaster ${pkgdir}/etc/rc.d/mfsmaster
+  install -m 755 -D ${srcdir}/mfsmetalogger ${pkgdir}/etc/rc.d/mfsmetalogger
+  install -m 755 -D ${srcdir}/mfscgiserv ${pkgdir}/etc/rc.d/mfscgiserv
+  install -m 755 -D ${srcdir}/mfschunkserver ${pkgdir}/etc/rc.d/mfschunkserver
+  find "$pkgdir" -name 'mfscgiserv' -print0 |xargs -0 \
+    sed -i -e 's,^#!/usr/bin/env python$,#!/usr/bin/env python2,' \
+    -e 's,^#!/usr/bin/python$,#!/usr/bin/python2,'
+}
+
