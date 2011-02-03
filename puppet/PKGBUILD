@@ -4,17 +4,16 @@
 # Contributor: Miah Johnson <miah (at) chia-pet dot org>
 
 pkgname=puppet
-libname=facter
 pkgver=2.6.4
-pkgrel=2
+pkgrel=3
 pkgdesc="A system for automating system administration tasks."
 arch=("any")
 url="http://puppetlabs.com/projects/puppet/"
 license=("GPL")
-depends=("ruby1.8" "ruby-shadow" "${libname}")
+depends=("ruby1.8" "ruby-shadow" "facter")
 options=(emptydirs)
 install="puppet.install"
-source=("http://puppetlabs.com/downloads/puppet/${pkgname}-${pkgver}.tar.gz"
+source=("http://puppetlabs.com/downloads/puppet/$pkgname-$pkgver.tar.gz"
         "puppet"
         "puppetmaster"
         "puppet.conf"
@@ -26,37 +25,41 @@ md5sums=('c0b86f40c8000dae2f0f7f2f91579c2a'
          'ea391561b25eba7c52b042d5be88f6ce')
 
 package() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd $srcdir/$pkgname-$pkgver
 
   # Install
   ruby-1.8 ./install.rb \
-    --destdir=${pkgdir} \
+    --destdir=$pkgdir \
     --sitelibdir=/opt/ruby1.8/lib/ruby/1.8/ \
     --bindir=/usr/bin \
     --sbindir=/usr/sbin \
     --mandir=/usr/share/man
 
   # Directories
-  install -d ${pkgdir}/etc/{puppet,rc.d}
-  install -d ${pkgdir}/etc/puppet/{ssl,manifests}
-  install -d ${pkgdir}/etc/puppet/ssl/{ca,certs,private}
-  install -m 1777 -d ${pkgdir}/etc/puppet/ssl/{private_keys,public_keys}
-  install -m 1777 -d ${pkgdir}/var/run/puppet
-  install -d ${pkgdir}/var/lib/puppet/{yaml,bucket,state,rrd,reports,templates,lib,facts}
-  install -d -m 750 ${pkgdir}/var/lib/puppet/{clientbucket,client_yaml}
-  install -m 1755 -d ${pkgdir}/var/lib/puppet/state
-  install -d ${pkgdir}/var/lib/puppet/state/{graphs,localconfig}
-  install -m 0750 -d ${pkgdir}/var/log/puppet
+  install -d $pkgdir/etc/{puppet,rc.d}
+  install -d $pkgdir/etc/puppet/{ssl,manifests}
+  install -d $pkgdir/etc/puppet/ssl/{ca,certs,private}
+  install -m 1777 -d $pkgdir/etc/puppet/ssl/{private_keys,public_keys}
+  install -m 1777 -d $pkgdir/var/run/puppet
+  install -d $pkgdir/var/lib/puppet/{yaml,bucket,state,rrd,reports,templates,lib,facts}
+  install -d -m 750 $pkgdir/var/lib/puppet/{clientbucket,client_yaml}
+  install -m 1755 -d $pkgdir/var/lib/puppet/state
+  install -d $pkgdir/var/lib/puppet/state/{graphs,localconfig}
+  install -m 0750 -d $pkgdir/var/log/puppet
 
   # Configuration
-  install -D ${srcdir}/puppet.conf ${pkgdir}/etc/puppet/puppet.conf
+  install -D $srcdir/puppet.conf $pkgdir/etc/puppet/puppet.conf
 
   # Daemons
-  install -D ${srcdir}/puppet ${pkgdir}/etc/rc.d/puppet
-  install -D ${srcdir}/puppetmaster ${pkgdir}/etc/rc.d/puppetmaster
+  install -D $srcdir/puppet $pkgdir/etc/rc.d/puppet
+  install -D $srcdir/puppetmaster $pkgdir/etc/rc.d/puppetmaster
 
   # Pacman Provider
-  install -m 644 ${srcdir}/pacman.rb ${pkgdir}/opt/ruby1.8/lib/ruby/1.8/puppet/provider/package/pacman.rb
+  install -m 644 $srcdir/pacman.rb $pkgdir/opt/ruby1.8/lib/ruby/1.8/puppet/provider/package/pacman.rb
 
-  find ${pkgdir}/usr/bin -type f -exec sed -i 's,^#!/usr/bin/ruby,#!/usr/bin/ruby-1.8,' {} \;
+  # Move pi to prevent file conflict
+  mv $pkgdir/usr/bin/pi $pkgdir/usr/bin/puppet-pi
+
+  # Ensure that the shebang lines are correct
+  find $pkgdir/usr/bin -type f -exec sed -i 's,^#!/usr/bin/ruby,#!/usr/bin/ruby-1.8,' {} \;
 }
