@@ -21,9 +21,11 @@ md5sums=('2689719fb42c8cf0aa336f8c8933f413')
 
 build() {
   cd "${srcdir}/${_pkgname}-${_pkgver}"
-  ./configure --prefix=/opt/ruby1.8 \
+  ./configure \
+    --prefix=/opt/ruby1.8 \
     --disable-rpath \
-    --enable-shared --enable-pthread
+    --enable-shared \
+    --enable-pthread
   make
 }
 
