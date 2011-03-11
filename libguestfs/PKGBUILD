@@ -2,12 +2,13 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail.com>
 
 pkgname=libguestfs
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="Manages virtual machine images"
 arch=("i686" "x86_64")
 url="http://libguestfs.org"
 license=("GPL2" "LGPL2")
+install=libguestfs.install
 depends=("qemu"
          "febootstrap"
          "augeas")
