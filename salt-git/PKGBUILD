@@ -15,6 +15,7 @@ depends=('python2'
          'facter')
 makedepends=('git')
 provides=()
+conflicts=('salt')
 backup=('etc/salt/master' 
         'etc/salt/minion')
 options=()
