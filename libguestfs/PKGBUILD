@@ -2,8 +2,8 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail.com>
 
 pkgname=libguestfs
-pkgver=1.8.2
-pkgrel=3
+pkgver=1.8.4
+pkgrel=1
 pkgdesc="Manages virtual machine images"
 arch=("i686" "x86_64")
 url="http://libguestfs.org"
@@ -11,12 +11,12 @@ license=("GPL2" "LGPL2")
 install=libguestfs.install
 depends=("qemu"
          "febootstrap"
-         "augeas")
+         "augeas"
+         "hivex")
 makedepends=("perl-io-stringy"
              "perl-test-simple"
              "ocaml-findlib"
              "java-environment=6"
-             "hivex"
              "python2"
              "ocaml"
              "php"
