@@ -1,9 +1,8 @@
 # Maintainer: Thomas S Hatch <thatch45 at gmail dot com>
-# Contributor: Mikhail Kulemin <mihkulemin@gmail.com>
 pkgname=python2-pyzmq
 pkgver=2.1.4
 pkgrel=1
-pkgdesc="Cython based Python bindings for 0MQ(zeromq)."
+pkgdesc="Python2 bindings for zeromq, written in Cython"
 arch=(i686 x86_64)
 url="http://www.zeromq.org/bindings:python"
 license=('LGPL')

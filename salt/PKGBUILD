@@ -2,13 +2,13 @@
 
 pkgname=salt
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A remote execution and communication system built on zeromq"
 arch=(any)
 url="https://github.com/thatch45/salt"
 license=("APACHE")
 depends=('python2'
-         'pyzmq'
+         'python2-pyzmq'
          'python-m2crypto'
          'python-yaml'
          'pycrypto'
