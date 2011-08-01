@@ -14,8 +14,7 @@ makedepends=('git')
 options=(!emptydirs)
 source=()
 
-_gitroot="git://github.com/jamtur01/facter.git"
-_gitbranch="tickets/master/6521"
+_gitroot="git://github.com/puppetlabs/facter.git"
 _gitname="facter"
 
 build() {
@@ -26,7 +25,7 @@ build() {
     cd $_gitname && git pull origin
     msg "The local files are updated."
   else
-    git clone $_gitroot -b $_gitbranch $_gitname
+    git clone $_gitroot $_gitname
   fi
 
   msg "GIT checkout done or server timeout"
