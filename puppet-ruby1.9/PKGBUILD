@@ -2,6 +2,7 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail (dot) com>
 # Contributor: Xavion <Xavion (dot) 0 (at) Gmail (dot) com>
 # Contributor: Miah Johnson <miah (at) chia-pet dot org>
+# Contributor: Dave Simons <miouhpi (at) Gmail (dot) com>
 
 pkgname=puppet-ruby1.9
 pkgver=2.7.2rc3
