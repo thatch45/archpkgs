@@ -1,4 +1,5 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail.com>
+# Contributor: Dave Simons <miouhpi (at) Gmail (dot) com>
 
 pkgname=facter-ruby1.9
 pkgver=1.6.0
