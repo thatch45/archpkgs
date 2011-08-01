@@ -1,7 +1,8 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail.com>
+# Contributor: Dave Simons <miouhpi (at) Gmail (dot) com>
 
 pkgname=facter-ruby1.9-git
-pkgver=20110301
+pkgver=20110801
 pkgrel=1
 pkgdesc="A library for collecting facts about your system."
 arch=("any")
@@ -13,7 +14,7 @@ makedepends=('git')
 options=(!emptydirs)
 source=()
 
-_gitroot="https://github.com/jamtur01/facter/tree/tickets/master/6521"
+_gitroot="git://github.com/puppetlabs/facter.git"
 _gitname="facter"
 
 build() {
@@ -45,4 +46,3 @@ package() {
       --sbindir=/usr/sbin
   
 }
-
