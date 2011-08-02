@@ -14,7 +14,6 @@ license=("GPL")
 depends=("ruby" "ruby-shadow" "facter")
 backup=("etc/puppet/puppet.conf")
 options=(emptydirs)
-conflicts=('puppet')
 install="puppet.install"
 source=("http://puppetlabs.com/downloads/puppet/puppet-$pkgver.tar.gz"
         "puppet"
