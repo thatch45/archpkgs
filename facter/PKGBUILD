@@ -9,7 +9,6 @@ arch=("any")
 url="http://puppetlabs.com/projects/facter/"
 license=("GPL")
 depends=("ruby")
-conflicts=("facter")
 options=(!emptydirs)
 source=(http://puppetlabs.com/downloads/facter/facter-$pkgver.tar.gz)
 md5sums=('bf7e384bf247935e973cfd7bf5592dfe')
