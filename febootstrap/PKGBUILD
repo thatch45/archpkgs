@@ -1,7 +1,7 @@
 # Maintainer: Thomas S Hatch <thatch45 (at) Gmail (dot) com>
 
 pkgname=febootstrap
-pkgver=3.4
+pkgver=3.12
 pkgrel=1
 license=('GPL2')
 arch=('i686' 'x86_64')
@@ -13,7 +13,7 @@ depends=('pacman-contrib'
 makedepends=('ocaml'
              'ocaml-findlib')
 source=("http://people.redhat.com/~rjones/$pkgname/files/$pkgname-$pkgver.tar.gz")
-md5sums=('9b895b9b247c2f66cf11027aef390f5a')
+md5sums=('8d0143c96c538909bf0bbc13d09604c4')
 
 build() {
   cd "$pkgname-$pkgver"
